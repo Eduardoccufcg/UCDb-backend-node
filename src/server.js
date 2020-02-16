@@ -3,13 +3,9 @@
 const app = require('../src/app');
 const http = require('http');
 const debug = require('debug')('nodestr:server');
-const bodyParser = require('body-parser');
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
 
 const server = http.createServer(app);
 server.on('error',onError);
@@ -51,4 +47,4 @@ function onError(error){
         
 }
 server.listen(port);
-console.log("rodando na porta " + port);
+console.log("API rodando na porta " + port);
