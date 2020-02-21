@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize')
 
-const sequelize = new Sequelize('ucdb','root','root',{
-    host:'localhost',
+const sequelize = new Sequelize('ucdb','root','masterroot',{
+    host:'live.chlofxt42b3u.us-east-2.rds.amazonaws.com',
     dialect:'mysql'
  
 });
