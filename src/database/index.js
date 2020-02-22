@@ -1,11 +1,11 @@
 const { Sequelize, DataTypes } = require('sequelize')
 
-const sequelize = new Sequelize('ucdb','root','masterroot',{
-    host:'live.chlofxt42b3u.us-east-2.rds.amazonaws.com',
+const sequelize = new Sequelize('ucdb','root', process.env.BD_SENHA || "root",{
+    host: process.env.AWS_RDB_URL || "localhost",
     dialect:'mysql',
-    port:3306
- 
+    port: process.env.BD_PORTA || 3306
 });
+
 
 sequelize.authenticate().then(function(){
     console.log('OK')
