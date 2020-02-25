@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 const sequelize = new Sequelize('ucdb','root', process.env.BD_SENHA,{
     host: process.env.AWS_RDB_URL,
     dialect:'mysql',
-    port: process.env.BD_PORTA || 3306
+    port: process.env.BD_PORTA
 });
 
 
