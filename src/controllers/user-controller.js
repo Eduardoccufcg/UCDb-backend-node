@@ -3,6 +3,7 @@
 const User = require('../models/user');
 
 exports.post = (req, res, next) => {
+
 	User.create({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -19,6 +20,7 @@ exports.post = (req, res, next) => {
 			}))
 		})
 		.catch(function (erro) {
+			
 			res.status(500).send("Houve um erro " + erro);
 		});
 };

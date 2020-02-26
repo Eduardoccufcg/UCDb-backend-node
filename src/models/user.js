@@ -17,7 +17,8 @@ const User = sequelize.define('User', {
 		validate: {
 			notEmpty: true,
 			notNull: true
-		}
+		},
+		unique: true
 	},
 	lastName: {
 		type: Sequelize.STRING,
@@ -38,6 +39,6 @@ const User = sequelize.define('User', {
 	}
 });
 
-User.sync();
+User.sync({force:true});
 
 module.exports = User;
