@@ -1,4 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize')
+const { Sequelize } = require('sequelize')
+
 
 const sequelize = new Sequelize('ucdb','root', process.env.BD_SENHA,{
     host: process.env.AWS_RDB_URL,
@@ -6,11 +7,9 @@ const sequelize = new Sequelize('ucdb','root', process.env.BD_SENHA,{
     port: process.env.BD_PORTA
 });
 
-
 sequelize.authenticate().then(function(){
     console.log('OK')
 }).catch(function(erro){
     console.log('Falha:' + erro)
 });
-
-module.exports = {sequelize,DataTypes};
+module.exports = sequelize;

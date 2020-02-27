@@ -1,44 +1,55 @@
 
-const { sequelize } = require('../database/index');
-const {Sequelize} = require('sequelize')
-const User = sequelize.define('User', {
+const {DataTypes,Model} = require('sequelize') 
 
-	firstName: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			notNull: true
-		}
-	},
-	email: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			notNull: true
-		},
-		unique: true
-	},
-	lastName: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			notNull: true
-		}
-	},
-	password: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			min: 8,
-			notEmpty: true,
-			notNull: true
-		}
+class User extends Model{
+	static init(sequelize){
+		super.init({
+			firstName: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+					notNull: true
+				}
+			},
+			email: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+					notNull: true
+				},
+				unique: true
+			},
+			lastName: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+					notNull: true
+				}
+			},
+			password: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					min: 8,
+					notEmpty: true,
+					notNull: true
+				}
+			}
+
+
+		},{
+			sequelize
+		})
 	}
-});
 
-User.sync({force:true});
+	static associate(models){
+		this.belongsToMany(models.Profile,{foreignKey: "user_id", through:"user_like_profile",as:'profiles' })
+	}
+
+
+}
 
 module.exports = User;

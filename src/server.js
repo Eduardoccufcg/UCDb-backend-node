@@ -4,6 +4,8 @@ const app = require('../src/app');
 const http = require('http');
 const debug = require('debug')('nodestr:server');
 
+const sequelize = require('../src/database/index');
+
 const port = normalizePort(process.env.PORT);
 app.set('port', port);
 
