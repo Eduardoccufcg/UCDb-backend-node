@@ -12,10 +12,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 const indexRoutes = require('./routes/index');
 const UserRoute = require('./routes/user-routes');
 const LoginRoute = require('./routes/login-routes');
+const ProfileRoute = require('./routes/profile-routes');
 
 app.use('/', indexRoutes);
 app.use('/users', UserRoute)
 app.use('/login', LoginRoute)
+app.use('/profiles', ProfileRoute)
 
 // Carrega os modelos
 const User = require('./models/user');
@@ -26,6 +28,5 @@ Profile.init(sequelize);
 User.associate(sequelize.models);
 Profile.associate(sequelize.models);
 
-sequelize.sync({force:true});
 
 module.exports = app;

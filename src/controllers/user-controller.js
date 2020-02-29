@@ -2,25 +2,31 @@
 
 const User = require('../models/user');
 
-exports.post = (req, res, next) => {
+exports.post = async (req, res, next) => {
 
-	User.create({
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		email: req.body.email,
-		password: req.body.password
-	})
-		.then(function (result) {
+	if (await User.findOne({
 
-			res.status(201).send(User.build({
-				id: result.id,
-				firstName: result.firstName,
-				lastName: result.lastName,
-				email: result.email
-			}))
+		where: {
+			email: req.body.email
+		}
+	}
+	) != null) {
+		res.status(409).send({ "error": "Usuário já cadastrado" });
+	}
+
+	await User.create(
+		req.body
+	)
+		.then(function (user) {
+
+			res.status(201).send({
+				id: user.id,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+			});
 		})
-		.catch(function (erro) {
-			
+		.catch((erro) => {
 			res.status(500).send("Houve um erro " + erro);
 		});
 };
