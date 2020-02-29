@@ -28,5 +28,5 @@ Profile.init(sequelize);
 User.associate(sequelize.models);
 Profile.associate(sequelize.models);
 
-
+sequelize.sync({force:true})
 module.exports = app;
