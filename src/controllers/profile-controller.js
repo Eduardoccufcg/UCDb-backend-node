@@ -1,7 +1,7 @@
 'use strict';
 
 const Profile = require('../models/profile');
-
+const {Op} = require('sequelize');
 
 exports.post = async (req, res, next) => {
 
@@ -28,6 +28,22 @@ exports.getById = async (req, res, next) => {
     const id = req.params.id;
     const profile = await Profile.findByPk(id);
     res.status(200).send(profile);
+};
+
+exports.searchBySubstring = async (req, res, next) => {
+
+   
+    const substring = `%${req.query.substring}%`; 
+    
+    const profiles = await Profile.findAll({
+        where:{
+            name:{
+                [Op.like]: substring
+            }
+        },
+        attributes: ['id', 'name']
+    });
+    res.status(200).send(profiles);
 };
 
 exports.deleteById = async (req, res, next) => {
